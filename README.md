@@ -52,12 +52,15 @@ each bookmark's favicon as a base64 data URI right in the `ICON` attribute,
 so a bookmark file with a few thousand entries can easily be a few hundred
 megabytes even though the actual URLs and titles are tiny.
 
+Duplicate URLs are printed in sorted order so the output is stable across
+runs, even though occurrences within each URL keep the file's original line
+order.
+
 ## Limitations
 
 - Assumes the one-entry-per-line convention that Chrome, Firefox, and
   Safari all follow. Hand-edited or oddly reformatted export files may not
   parse correctly.
-- Output order isn't currently sorted (see NEXT ideas below).
 
 ## License
 

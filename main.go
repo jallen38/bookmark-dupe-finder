@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 )
 
 type occurrence struct {
@@ -43,19 +44,24 @@ func main() {
 		os.Exit(1)
 	}
 
-	found := 0
+	urls := make([]string, 0, len(seen))
 	for url, occurrences := range seen {
 		if len(occurrences) < 2 {
 			continue
 		}
-		found++
+		urls = append(urls, url)
+	}
+	sort.Strings(urls)
+
+	for _, url := range urls {
+		occurrences := seen[url]
 		fmt.Printf("%s (%d times)\n", url, len(occurrences))
 		for _, o := range occurrences {
 			fmt.Printf("  line %d: %s\n", o.line, o.title)
 		}
 	}
 
-	if found == 0 {
+	if len(urls) == 0 {
 		fmt.Println("no duplicate bookmarks found")
 	}
 }
